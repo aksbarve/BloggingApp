@@ -8,13 +8,17 @@ import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './Home/home.component';
 import { ViewPostComponent } from './viewPost/viewpost.component';
+import { AddPostComponent } from './addPost/addpost.component';
+import { CommonService } from './service/common.service';
+
 
 @NgModule({
   declarations: [
     RootComponent,
     LoginComponent,
     HomeComponent,
-    ViewPostComponent
+    ViewPostComponent,
+    AddPostComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +26,7 @@ import { ViewPostComponent } from './viewPost/viewpost.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [CommonService],
   bootstrap: [RootComponent]
 })
 export class AppModule { }

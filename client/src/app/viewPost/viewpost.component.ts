@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewPostService} from './viewpost.service';
-// import { Post } from '../models/post.model';
+import { Post } from '../models/post.model';
+import { CommonService } from '../service/common.service';
 
 @Component({
   selector: 'app-show-post',
@@ -12,12 +13,16 @@ export class ViewPostComponent implements OnInit {
 
   public posts: any [];
 
-  constructor(private viewPostService: ViewPostService) {
+  constructor(private viewPostService: ViewPostService, private commonService: CommonService) {
 
   }
 
   ngOnInit() {
     this.getAllPost();
+
+    this.commonService.postAdded_Observable.subscribe( res => {
+      this.getAllPost();
+    });
   }
 
   getAllPost() {
@@ -25,5 +30,4 @@ export class ViewPostComponent implements OnInit {
       this.posts = result['data'];
     });
   }
-
 }

@@ -1,3 +1,4 @@
+/* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
 .footer {
@@ -11,6 +12,7 @@
   border-bottom: .05rem solid #e5e5e5;
 }
 
+/* Make the masthead heading the same height as the navigation */
 .header h3 {
   margin-top: 0;
   margin-bottom: 0;
@@ -67,7 +69,13 @@
     margin-bottom: 2rem;
   }
 
+  /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+.btn{
+  text-decoration:none;
+  cursor: pointer;
 }
