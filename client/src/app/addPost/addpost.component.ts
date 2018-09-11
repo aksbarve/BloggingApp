@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { AddPostService } from './addpost.service';
 import { Post } from '../models/post.model';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { CommonService } from '../service/common.service';
   styleUrls: ['./addpost.component.css'],
   providers: [ AddPostService ]
 })
-export class AddPostComponent {
+export class AddPostComponent implements OnInit {
 
   @ViewChild('closeBtn') closeBtn: ElementRef;
   public post: Post;
@@ -19,15 +19,29 @@ export class AddPostComponent {
     this.post = new Post();
   }
 
+  ngOnInit() {
+    this.commonService.postEdit_Observable.subscribe(res => {
+      this.post = this.commonService.post_to_be_edited;
+    });
+
+  }
+
   addPost() {
     if (this.post.title && this.post.description) {
-        this.addPostService.addPost(this.post).subscribe(res => {
-        this.closeBtn.nativeElement.click();
-        this.commonService.notifyPostAddition();
-        });
+        if (this.post._id) {
+          this.addPostService.updatePost(this.post).subscribe(res => {
+            this.closeBtn.nativeElement.click();
+            this.commonService.notifyPostAddition();
+          });
+        } else {
+          this.addPostService.addPost(this.post).subscribe(res => {
+            this.closeBtn.nativeElement.click();
+            this.commonService.notifyPostAddition();
+          });
+        }
     } else {
-      alert('Title and Description required');
+        alert('Title and Description required');
     }
-  }
+}
 
 }

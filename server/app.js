@@ -68,6 +68,22 @@ app.post('/api/post/createPost', (req, res) => {
 	});
 })
 
+app.post('/api/post/updatePost', (req, res) => {
+    mongoose.connect(url, { useMongoClient: true }, function(err){
+        if(err) throw err;
+        Post.update(
+            {_id: req.body.id },
+            { title : req.body.title, description: req.body.description },
+            (err, doc) => {
+            if(err) throw err;
+            return res.status(200).json({
+                status: 'success',
+                data: doc
+            })
+        })
+    });
+})
+
 app.post('/api/post/getPost', (req, res) => {
 	mongoose.connect(url, function(err){
 		if(err) throw err;
